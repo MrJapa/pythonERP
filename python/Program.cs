@@ -6,8 +6,8 @@ namespace python
     {
         static void Main(string[] args)
         {
-            Product product = new Product();
-            product.ProductItems();
+            Product.ProductItems();
+            CustomerGUI.SeedCustomer();
             GUI gui = new GUI();
             gui.Menu();
         }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace python
 {
-    class item
+    public class item
     {
         public int ItemCode { get; set; }
         public string ItemName { get; set; }

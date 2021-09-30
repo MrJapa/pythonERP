@@ -9,17 +9,17 @@ namespace python
         public static void VarePrint()
         {
             Console.SetCursorPosition(0, 2);
-            Console.WriteLine("Item Code");
+            Console.WriteLine("Product ID");
             Console.SetCursorPosition(20, 2);
             Console.WriteLine("Name");
             Console.SetCursorPosition(40, 2);
-            Console.WriteLine("Count");
+            Console.WriteLine("Buy Price");
             Console.SetCursorPosition(60, 2);
             Console.WriteLine("Sales Price");
             Console.SetCursorPosition(80, 2);
-            Console.WriteLine("Buy Price");
-            Console.SetCursorPosition(100, 2);
             Console.WriteLine("Stock");
+            Console.SetCursorPosition(100, 2);
+            Console.WriteLine("Stock Capacity");
 
         }
         public static void Vareliste()
@@ -41,11 +41,14 @@ namespace python
             else if (cki.Key == ConsoleKey.D2)
             {
                 Console.Clear();
+                int getItemtoEdit = GUI.GetInt("Enter Product ID to edit");
+                RedigerVare(getItemtoEdit);
             }
             else if (cki.Key == ConsoleKey.D3)
             {
                 Console.Clear();
-                SQL.ReadStockData();
+                SQL.SearchProduct();
+
             }
             else if (cki.Key == ConsoleKey.D4)
             {
@@ -57,17 +60,29 @@ namespace python
         public static void OpretVare()
         {
             Console.Clear();
-            Console.WriteLine("Create product");
+            Console.WriteLine("Create Product");
             item item = new item();
-            item.ItemCode = GUI.GetInt("Item Code");
-            item.ItemName = GUI.GetString("Item Name");
-            item.Count = GUI.GetInt("Item Count");
-            item.SalesPrice = GUI.GetInt("Item Sales Price");
-            item.CostPrice = GUI.GetInt("Item Buy Price");
+            item.ProductName = GUI.GetString("Product Name");
+            item.BuyPrice = GUI.GetInt("Buy Price");
+            item.SalesPrice = GUI.GetInt("Sales Price");
+            item.Count = GUI.GetInt("Count");
             item.StorageCapacity = GUI.GetInt("Storage Capacity");
             Database.items.Add(item);
             SQL.CreateProduct(item);
         }
 
+        public static void RedigerVare(int input)
+        {
+            Console.Clear();
+            Console.WriteLine("Edit Product");
+            item item = new item();
+            item.ProductName = GUI.GetString("Product Name");
+            item.BuyPrice = GUI.GetInt("Buy Price");
+            item.SalesPrice = GUI.GetInt("Sales Price");
+            item.Count = GUI.GetInt("Count");
+            item.StorageCapacity = GUI.GetInt("Storage Capacity");
+            Database.items.Add(item);
+            SQL.EditProduct(item,input);
+        }
     }
 }

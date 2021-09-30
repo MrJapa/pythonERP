@@ -6,11 +6,11 @@ namespace python
 {
     public class item
     {
-        public int ItemCode { get; set; }
-        public string ItemName { get; set; }
+        public int ID { get; set; }
+        public string ProductName { get; set; }
+        public int BuyPrice { get; set; }
+        public int SalesPrice { get; set; }
         public int Count { get; set; }
-        public double SalesPrice { get; set; }
-        public double CostPrice { get; set; }
         public int StorageCapacity { get; set; }
     }
 }

@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace python
 {
-    class Customer:Person
+    public class Customer:Person
     {
         public int CustomerID { get; set; }
         public int LatestOrderID { get; set; }

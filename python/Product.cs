@@ -32,7 +32,7 @@ namespace python
             SQL.ReadStockData();
             Console.WriteLine();
             Console.WriteLine("____________________________________________________________________________________________________________________");
-            Console.WriteLine("1. Create Product: \n2. Edit Product: \n3. Search Product: \n4. Delete Product: ");
+            Console.WriteLine("1. Create Product: \n2. Edit Product: \n3. Search Product: \n4. Delete Product: \n5. Back:");
             cki = Console.ReadKey();
             if (cki.Key == ConsoleKey.D1)
             {
@@ -54,6 +54,12 @@ namespace python
             {
                 Console.Clear();
                 SQL.DeleteProduct();
+            }
+            else if (cki.Key == ConsoleKey.D5)
+            {
+                Console.Clear();
+                GUI gui = new GUI();
+                gui.Menu();
             }
             Vareliste();
         }

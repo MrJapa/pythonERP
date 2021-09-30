@@ -49,7 +49,7 @@ namespace python
         public static void DeleteProduct()
         {
             int getItemtoDelete = GUI.GetInt("Write Product ID To Delete");
-            string queryString = "DELETE FROM dbo.Varer WHERE ID = "+getItemtoDelete+"";
+            string queryString = "DELETE FROM dbo.Varer WHERE ID = " + getItemtoDelete + "";
             using (SqlConnection connection = new SqlConnection(ConnectionString.conn))
             {
                 SqlCommand command = new SqlCommand(queryString, connection);
@@ -117,6 +117,41 @@ namespace python
                 connection.Open();
                 command.ExecuteNonQuery();
                 Console.WriteLine("Item Updates");
+            }
+        }
+        public static void CreateCustomer(Customer customer)
+        {
+            string queryString = $"INSERT INTO dbo.Kunder (FirstName, LastName, Address, City, PostalCode, PhoneNumber, Email) VALUES ('{customer.FirstName}','{customer.LastName}','{customer.Address}','{customer.City}',{customer.PostalCode},{customer.PhoneNum},'{customer.Email}')";
+            using (SqlConnection connection = new SqlConnection(ConnectionString.conn))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+        }
+        public static void ReadCustomerData()
+        {
+            string queryString = "SELECT * FROM dbo.Kunder";
+            using (SqlConnection connection = new SqlConnection(ConnectionString.conn))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    int i = 3;
+                    while (reader.Read())
+                    {
+                        Console.SetCursorPosition(0, i);
+                        Console.WriteLine(string.Format("{0}", reader["ID"]));
+                        Console.SetCursorPosition(20, i);
+                        Console.Write(string.Format("{0}", reader["FirstName"]));
+                        Console.SetCursorPosition(40, i);
+                        Console.Write(string.Format("{0}", reader["LastName"]));
+                        Console.SetCursorPosition(60, i);
+                        Console.Write(string.Format("{0}", reader["City"]));
+                        i++;
+                    }
+                }
             }
         }
     }

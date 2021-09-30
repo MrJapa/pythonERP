@@ -6,8 +6,6 @@ namespace python
     {
         static void Main(string[] args)
         {
-            
-            CustomerGUI.SeedCustomer();
             GUI gui = new GUI();
             gui.Menu();
         }

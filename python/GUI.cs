@@ -29,7 +29,8 @@ namespace python
                 }
                 else if (cki.Key == ConsoleKey.D3)
                 {
-
+                    OrderGUI.OrdreListe();
+                    break;
                 }
 
             }

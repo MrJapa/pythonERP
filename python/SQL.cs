@@ -199,6 +199,44 @@ namespace python
 
             }
         }
+        public static void ReadOrderData()
+        {
+            string queryString = "SELECT * FROM dbo.Ordre";
+            using (SqlConnection connection = new SqlConnection(ConnectionString.conn))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    int i = 3;
+                    while (reader.Read())
+                    {
+                        Console.SetCursorPosition(0, i);
+                        Console.WriteLine(string.Format("{0}", reader["ID"]));
+                        Console.SetCursorPosition(20, i);
+                        Console.Write(string.Format("{0}", reader["KundeID"]));
+                        Console.SetCursorPosition(40, i);
+                        Console.Write(string.Format("{0}", reader["Dato"]));
+                        Console.SetCursorPosition(80, i);
+                        Console.Write(string.Format("{0}", reader["Lokation"]));
+                        Console.SetCursorPosition(100, i);
+                        Console.Write(string.Format("{0}", reader["Status"]));
+                        i++;
+                    }
+                }
+            }
+        }
+        public static void EditOrder(Order order, int getItemtoEdit)
+        {
+            string queryString = $"UPDATE dbo.Ordre set Status ='{order.Status}' WHERE ID = '{getItemtoEdit}'";
+            using (SqlConnection connection = new SqlConnection(ConnectionString.conn))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                connection.Open();
+                command.ExecuteNonQuery();
+                Console.WriteLine("Item Updates");
+            }
+        }
     }
 }
 

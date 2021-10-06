@@ -87,6 +87,17 @@ namespace python
             item.SalesPrice = GUI.GetInt("Sales Price");
             item.Count = GUI.GetInt("Count");
             item.StorageCapacity = GUI.GetInt("Storage Capacity");
+            Console.WriteLine("Place order?");
+            string bestil = GUI.GetString("Enter yes or no");
+            if (bestil == "yes")
+            {
+                Console.WriteLine("perfect");
+                Console.ReadKey();
+            }
+            else
+            {
+                Console.WriteLine("Product Edited");
+            }
             Database.items.Add(item);
             SQL.EditProduct(item,input);
         }

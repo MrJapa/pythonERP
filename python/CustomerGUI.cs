@@ -22,6 +22,19 @@ namespace python
             Database.Customer.Add(customer);
             SQL.CreateCustomer(customer);
         }
+        public static void RedigerKunde(int input)
+        {
+            Customer customer = new Customer();
+            customer.FirstName = GUI.GetString("First Name");
+            customer.LastName = GUI.GetString("Last Name");
+            customer.Address = GUI.GetString("Address");
+            customer.City = GUI.GetString("City");
+            customer.PostalCode = GUI.GetInt("Postal Code");
+            customer.PhoneNum = GUI.GetInt("Phone Number");
+            customer.Email = GUI.GetString("Email");
+            Database.Customer.Add(customer);
+            SQL.EditCustomer(customer, input);
+        }
         public static void CustomerPrint()
         {
             Console.SetCursorPosition(0, 2);
@@ -31,7 +44,7 @@ namespace python
             Console.SetCursorPosition(40, 2);
             Console.WriteLine("Last Name");
             Console.SetCursorPosition(60, 2);
-            Console.WriteLine("Latest Order Date");
+            Console.WriteLine("City");
             Console.SetCursorPosition(80, 2);
             Console.WriteLine();
             Console.SetCursorPosition(100, 2);
@@ -55,10 +68,29 @@ namespace python
             else if (cki.Key == ConsoleKey.D2)
             {
                 Console.Clear();
+                Console.WriteLine("Customer list");
+                Console.WriteLine("____________________________________________________________________________________________________________________");
+                CustomerPrint();
+                SQL.ReadCustomerData();
+                Console.WriteLine();
+                Console.WriteLine("____________________________________________________________________________________________________________________");
+                int getItemtoEdit = GUI.GetInt("Enter Customer ID to edit");
+                RedigerKunde(getItemtoEdit);
             }
             else if (cki.Key == ConsoleKey.D3)
             {
-
+                
+            }
+            else if (cki.Key == ConsoleKey.D4)
+            {
+                Console.Clear();
+                Console.WriteLine("Customer list");
+                Console.WriteLine("____________________________________________________________________________________________________________________");
+                CustomerPrint();
+                SQL.ReadCustomerData();
+                Console.WriteLine();
+                Console.WriteLine("____________________________________________________________________________________________________________________");
+                SQL.DeleteCustomer();
             }
             else if (cki.Key == ConsoleKey.D5)
             {

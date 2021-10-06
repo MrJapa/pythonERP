@@ -154,5 +154,51 @@ namespace python
                 }
             }
         }
+        public static void AddOrder(Orderline orderline, Order order)
+        {
+            string queryString = $"INSERT INTO dbo.Ordrelinjer (VareID, Count) VALUES ({orderline.VareID},{orderline.getCount})";
+            CreateOrder(order);
+            using (SqlConnection connection = new SqlConnection(ConnectionString.conn))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+        }
+        public static void CreateOrder(Order order)
+        {
+            string queryString = $"INSERT INTO dbo.Ordre (KundeID, Dato, Lokation, Status) VALUES ('{order.KundeID}', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '{order.Lokation}', 'Ongoing' ); SELECT SCOPE_IDENTITY()";
+            using (SqlConnection connection = new SqlConnection(ConnectionString.conn))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+        }
+        public static void EditCustomer(Customer customer, int getItemtoEdit)
+        {
+            string queryString = $"UPDATE dbo.Kunder set Firstname ='{customer.FirstName}', LastName ='{customer.LastName}', Address ='{customer.Address}', City ='{customer.City}', PostalCode ='{customer.PostalCode}', PhoneNumber ='{customer.PhoneNum}', Email ='{customer.Email}' WHERE ID = '{getItemtoEdit}'";
+            using (SqlConnection connection = new SqlConnection(ConnectionString.conn))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                connection.Open();
+                command.ExecuteNonQuery();
+                Console.WriteLine("Item Updates");
+            }
+        }
+        public static void DeleteCustomer()
+        {
+            int getItemtoDelete = GUI.GetInt("Write Customer ID To Delete");
+            string queryString = "DELETE FROM dbo.Kunder WHERE ID = " + getItemtoDelete + "";
+            using (SqlConnection connection = new SqlConnection(ConnectionString.conn))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                connection.Open();
+                command.ExecuteNonQuery();
+                Console.WriteLine("Customer Deleted");
+
+            }
+        }
     }
 }
+

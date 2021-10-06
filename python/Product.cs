@@ -32,7 +32,7 @@ namespace python
             SQL.ReadStockData();
             Console.WriteLine();
             Console.WriteLine("____________________________________________________________________________________________________________________");
-            Console.WriteLine("1. Create Product: \n2. Edit Product: \n3. Search Product: \n4. Delete Product: \n5. Back:");
+            Console.WriteLine("1. Create Product: \n2. Edit Product: \n3. Search Product: \n4. Delete Product: \n5. Order Product: \n6. Back:");
             cki = Console.ReadKey();
             if (cki.Key == ConsoleKey.D1)
             {
@@ -56,6 +56,11 @@ namespace python
                 SQL.DeleteProduct();
             }
             else if (cki.Key == ConsoleKey.D5)
+            {
+                Console.Clear();
+                BestilVare();
+            }
+            else if (cki.Key == ConsoleKey.D6)
             {
                 Console.Clear();
                 GUI gui = new GUI();
@@ -87,19 +92,38 @@ namespace python
             item.SalesPrice = GUI.GetInt("Sales Price");
             item.Count = GUI.GetInt("Count");
             item.StorageCapacity = GUI.GetInt("Storage Capacity");
-            Console.WriteLine("Place order?");
-            string bestil = GUI.GetString("Enter yes or no");
-            if (bestil == "yes")
-            {
-                Console.WriteLine("perfect");
-                Console.ReadKey();
-            }
-            else
-            {
-                Console.WriteLine("Product Edited");
-            }
             Database.items.Add(item);
             SQL.EditProduct(item,input);
+        }
+        public static void BestilVare()
+        {
+            Console.Clear();
+            Console.WriteLine("____________________________________________________________________________________________________________________");
+            VarePrint();
+            SQL.ReadStockData();
+            Console.WriteLine();
+            Console.WriteLine("____________________________________________________________________________________________________________________");
+            Console.WriteLine("Order Product");
+            Order order = new Order();
+            order.KundeID = GUI.GetInt("Enter Customer ID");
+            order.Lokation = GUI.GetString("Enter location");
+            Database.Order.Add(order);
+            Orderline orderline = new Orderline();
+            orderline.VareID = GUI.GetInt("Enter the Product ID you wish to order");
+            orderline.getCount = GUI.GetInt("How many do you want to order?");
+            Database.Orderline.Add(orderline);
+            SQL.AddOrder(orderline, order);
+        }
+        public static void OrdreListe()
+        {
+            Console.Clear();
+            Console.Clear();
+            Console.WriteLine("____________________________________________________________________________________________________________________");
+            VarePrint();
+            SQL.ReadStockData();
+            Console.WriteLine();
+            Console.WriteLine("____________________________________________________________________________________________________________________");
+
         }
     }
 }

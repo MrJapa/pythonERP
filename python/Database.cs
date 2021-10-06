@@ -9,5 +9,7 @@ namespace python
     {
         public static List<item> items = new List<item>();
         public static List<Customer> Customer = new List<Customer>();
+        public static List<Orderline> Orderline = new List<Orderline>();
+        public static List<Order> Order = new List<Order>();
     }
 }

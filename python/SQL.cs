@@ -167,7 +167,7 @@ namespace python
         }
         public static void CreateOrder(Order order)
         {
-            string queryString = $"INSERT INTO dbo.Ordre (KundeID, Dato, Lokation, Status) VALUES ('{order.KundeID}', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '{order.Lokation}', 'Ongoing' ); SELECT SCOPE_IDENTITY()";
+            string queryString = $"INSERT INTO dbo.Ordre (KundeID, Dato, Lokation, Status) VALUES ('{order.KundeID}', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ff")}', '{order.Lokation}', 'Ongoing' ); SELECT SCOPE_IDENTITY()";
             using (SqlConnection connection = new SqlConnection(ConnectionString.conn))
             {
                 SqlCommand command = new SqlCommand(queryString, connection);
